@@ -1,0 +1,21 @@
+@(apartmentForm: Form[Apartment])
+@import helper._
+
+@main("Product details") {
+
+    <h2>Add new product</h2>
+
+    @helper.form(action = routes.Application.save()) {
+        <fieldset>
+            <legend>Product (@apartmentForm("name").valueOr("New"))</legend>
+            @helper.inputText(apartmentForm("name"), '_label -> "Name")
+            @helper.inputText(apartmentForm("rent"), '_label -> "Price")
+            @helper.inputText(apartmentForm("location"), '_label -> "Location")
+            @helper.inputText(apartmentForm("square"), '_label -> "SQR")
+            @helper.inputText(apartmentForm("rooms"), '_label -> "Number of rooms")
+        </fieldset>
+
+        <input type="submit" class="btn btn-primary" value="Save">
+        <a class="btn btn-default" href="@routes.Application.index()">Cancel</a>
+    }
+}

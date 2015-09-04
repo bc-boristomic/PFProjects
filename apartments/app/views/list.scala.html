@@ -1,0 +1,43 @@
+@(application: List[Apartment])
+
+@main("Available apartments") {
+
+    <h3>All apartments</h3>
+
+    <script>
+    finction del(urlToDel) {
+    $.ajax({
+    url: urlToDel,
+    type: 'DELETE',
+    success: fimction(results) {
+    location.reload();
+    }
+    });
+    }
+  </script>
+
+    <table class="table table-stripped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Location</th>
+                <th>SQR</th>
+                <th>Number of rooms</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(apartment <- application) {
+                <tr>
+                    <td>@apartment.name</td>
+                    <td>@apartment.rent</td>
+                    <td>@apartment.location</td>
+                    <td>@apartment.square</td>
+                    <td>@apartment.roomNumber</td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
