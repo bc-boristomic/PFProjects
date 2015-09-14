@@ -1,0 +1,49 @@
+@main("Welcome to Play") {
+
+    <div class="col-lg-offset-3">
+
+        <p><strong>Do you like this paragraph?</strong></p>
+
+
+        <button id="like"><i class="glyphicon glyphicon-thumbs-up" name="1" value="1"> Like </i></button>
+        <button id="dislike"><i class="glyphicon glyphicon-thumbs-down" value="0"> Dislike </i></button>
+
+
+    </div>
+
+    <script>
+        var add = "aa";
+        var address = $.getJSON("http://jsonip.com?callback=?", function (data) {(add = data.ip);});
+
+        $(document).ready(function() {
+            $("#like").click(function() {
+                console.log("like clicked");
+                console.log(add);
+                $.ajax({
+                    type: "post",
+                    url: "@routes.Application.getLike()",
+                    data: "pressed=1" + "&address=" + add
+                }).success(function(response) {
+                    console.log(response);
+                })
+            })
+
+             $("#dislike").click(function() {
+                console.log("dislike clicked");
+                $.ajax({
+                    type: "post",
+                    url: "@routes.Application.getLike()",
+                    data: "pressed=0" + "&address=" + add
+                }).success(function(response) {
+                    console.log(response);
+                })
+            })
+
+        });
+
+
+
+    </script>
+
+
+}
