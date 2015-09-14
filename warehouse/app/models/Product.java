@@ -4,6 +4,7 @@ import play.data.validation.Constraints;
 
 import javax.persistence.Entity;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 //import play.data.validation.*;
@@ -31,8 +32,11 @@ public class Product {
     @Constraints.Required
     public String name;
 
-
     public String description;
+
+    public List<Tag> tags = new LinkedList<>();
+
+
 
     /**
      * Default constructor

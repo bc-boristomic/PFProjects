@@ -3,17 +3,50 @@
 
 @main("Product details") {
 
-  <h2>Add new product</h2>
+    <h2>Add new product</h2>
 
-  @helper.form(action = routes.Products.save()) {
-    <fieldset>
-      <legend>Product (@productForm("name").valueOr("New"))</legend>
-        @helper.inputText(productForm("ean"), '_label -> "EAN")
-        @helper.inputText(productForm("name"), '_label -> "Name")
-        @helper.textarea(productForm("description"), '_label -> "Description")
-    </fieldset>
+    @helper.form(action = routes.Products.save()) {
+        <fieldset>
+            <legend>Product (@productForm("name").valueOr("New"))</legend>
+            @helper.inputText(productForm("ean"), '_label -> "EAN")
+            @helper.inputText(productForm("name"), '_label -> "Name")
+            @helper.textarea(productForm("description"), '_label -> "Description")
 
-    <input type="submit" class="btn btn-primary" value="Save">
-    <a class="btn btn-default" href="@routes.Application.index()">Cancel</a>
-  }
+        </fieldset>
+
+        <div class="form-group">
+            <label class="checkbox-inline">
+                <input type="checkbox" name="tags[0].id" id="inline-Checkbox1" value="1"
+                @for(i <- 0 to 2) {
+                    @if(productForm("tags[" + i + "].id").value == "1") {
+                        checked
+                    }
+                }
+                > lightweight
+            </label>
+
+            <label class="checkbox-inline">
+                <input type="checkbox" name="tags[0].id" id="inline-Checkbox2" value="2"
+                @for(i <- 0 to 2) {
+                    @if(productForm("tags[" + i + "].id").value == "2") {
+                        checked
+                    }
+                }
+                > metal
+            </label>
+
+            <label class="checkbox-inline">
+                <input type="checkbox" name="tags[0].id" id="inline-Checkbox3" value="3"
+                @for(i <- 0 to 2) {
+                    @if(productForm("tags[" + i + "].id").value == "3") {
+                        checked
+                    }
+                }
+                > plastic
+            </label>
+        </div>
+
+        <input type="submit" class="btn btn-primary" value="Save">
+        <a class="btn btn-default" href="@routes.Application.index()">Cancel</a>
+    }
 }

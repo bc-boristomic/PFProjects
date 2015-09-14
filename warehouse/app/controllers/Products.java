@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Product;
+import models.Tag;
 import play.Logger;
 import play.data.Form;
 import play.mvc.Controller;
@@ -8,6 +9,7 @@ import play.mvc.Result;
 import views.html.products.details;
 import views.html.products.list;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class Products extends Controller {
@@ -39,6 +41,18 @@ public class Products extends Controller {
             return badRequest(details.render(boundForm));
         }
         Product product = boundForm.get();
+
+        List<Tag> tags = new LinkedList<>();
+        List<Tag> oldTags = new LinkedList<>();
+
+        for (Tag tag : product.tags) {
+            if (tag.id != null) {
+                tags.add(Tag.findById(tag.id));
+            }
+            oldTags.add(tag);
+        }
+        product.tags = tags;
+
         product.save();
 
         flash("success", String.format("Successfully added product %s", product));

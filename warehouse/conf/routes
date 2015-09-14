@@ -14,3 +14,6 @@ GET           /products/:ean        @controllers.Products.details(ean: String)
 POST          /products/            @controllers.Products.save()
 DELETE        /products/:ean        @controllers.Products.delete(ean: String)
 
+GET           /test                 @controllers.Products.save()
+
+
