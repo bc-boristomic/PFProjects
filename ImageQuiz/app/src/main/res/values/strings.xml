@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">ImageQuiz</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="question_text">What\'s the answer?</string>
+    <string name="true_button">Yes</string>
+    <string name="false_button">No</string>
+    <string name="correct_toast">Correct</string>
+    <string name="incorrect_toast">Incorrect</string>
+    <string name="next_button">Next</string>
+    <string name="previous_button">Prev</string>
+
+    <string name="question_one">Is this a dog?</string>
+    <string name="question_two">Is this a cat?</string>
+    <string name="question_three">Is this a elephant?</string>
+    <string name="question_four">Is this a bear?</string>
+    <string name="question_five">Is this a bird?</string>
+
+
+</resources>
