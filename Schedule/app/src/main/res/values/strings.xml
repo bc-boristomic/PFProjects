@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Schedule</string>
+
+    <string name="get_schedule">See schedule</string>
+
+    <string name="day_one">AndroidStudio installation</string>
+    <string name="day_two">Android introduction</string>
+    <string name="day_three">First android app</string>
+    <string name="day_four">Workshop</string>
+    <string name="day_five">Company visits</string>
+    <string name="day_six">Weekend :D</string>
+    <string name="day_seven">Monday is near :(</string>
+
+
+</resources>
