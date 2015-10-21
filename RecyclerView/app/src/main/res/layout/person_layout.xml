@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/recycle_background"
+    android:layout_marginBottom="2dp" >
 
     <TextView
         android:id="@+id/person_id"
@@ -9,9 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-
-        android:text="id osobe" />
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:id="@+id/person_firstName"
@@ -19,12 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/person_id"
-        android:layout_marginLeft="20dp"
-
-
-        android:text="ime osobe"
-
-        />
+        android:layout_marginLeft="10dp" />
 
     <TextView
         android:id="@+id/person_lastName"
@@ -32,10 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/person_firstName"
         android:layout_alignStart="@+id/person_firstName"
-        android:layout_alignLeft="@+id/person_firstName"
-
-        android:text="prexime"
-        />
+        android:layout_alignLeft="@+id/person_firstName" />
 
     <TextView
         android:id="@+id/person_date"
@@ -43,9 +35,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@id/person_firstName"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="10dp" />
 
-        android:text="datum"
-        />
+    <Button
+        android:id="@+id/remove_person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/person_date"
+        android:layout_marginLeft="10dp"
+        android:text="@string/remove_button"
+        android:backgroundTint="@color/buttonRemoveBackground"
+        android:textColor="@color/buttonRemoveText"/>
 
 </RelativeLayout>
