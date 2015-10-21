@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">RecyclerView</string>
+    <string name="title">Add a person</string>
+    <string name="button_text">ADD</string>
+    <string name="hint_firstName">Name</string>
+    <string name="hint_lastName">Surname</string>
+</resources>
