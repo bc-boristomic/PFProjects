@@ -1,5 +1,6 @@
 package ba.bitcamp.android.recyclerview;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,18 +15,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final String KEY_INDEX = "Saved list of persons";
+    public static final String KEY_INTENT = "Person";
 
     private EditText mFirstNameText;
     private EditText mLastNameText;
     private Button mAddButton;
     private RecyclerView mRecyclerView;
     private PersonAdapter mPersonAdapter;
-    private Persons persons = Persons.get();
+    private static Persons persons = Persons.get();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,12 +83,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateUI() {
-        List<PersonModel> personsList = persons.getPersons();
-        mPersonAdapter = new PersonAdapter(personsList);
+        mPersonAdapter = new PersonAdapter();
         mRecyclerView.setAdapter(mPersonAdapter);
     }
 
-    private class PersonHolder extends RecyclerView.ViewHolder {
+    private class PersonHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private PersonModel mPerson;
 
@@ -97,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
 
         public PersonHolder(View personView) {
             super(personView);
+
+            personView.setOnClickListener(this);
 
             idView = (TextView) personView.findViewById(R.id.person_id);
             firstNameView = (TextView) personView.findViewById(R.id.person_firstName);
@@ -113,6 +117,16 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(MainActivity.this, mPerson.getFirstName() + " person name", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(MainActivity.this, EditDetails.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(KEY_INTENT, mPerson);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+
         public void bindPerson(PersonModel person) {
             mPerson = person;
             idView.setText(person.getId());
@@ -124,11 +138,6 @@ public class MainActivity extends AppCompatActivity {
 
     private class PersonAdapter extends RecyclerView.Adapter<PersonHolder> {
 
-        private List<PersonModel> mPersons;
-
-        public PersonAdapter(List<PersonModel> persons) {
-            mPersons = persons;
-        }
 
         @Override
         public PersonHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -139,13 +148,13 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(PersonHolder holder, int position) {
-            PersonModel person = mPersons.get(position);
+            PersonModel person = Persons.get().getPersons().get(position);
             holder.bindPerson(person);
         }
 
         @Override
         public int getItemCount() {
-            return mPersons.size();
+            return Persons.get().getPersons().size();
         }
 
     }

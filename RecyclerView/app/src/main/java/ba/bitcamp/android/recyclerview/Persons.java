@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by boris on 10/21/15.
@@ -33,9 +34,18 @@ public class Persons implements Parcelable {
 
     public static Persons get() {
         if (sPersons == null) {
-            return new Persons();
+            sPersons = new Persons();
         }
         return sPersons;
+    }
+
+    public PersonModel getPersonById(UUID id) {
+        for (PersonModel person : mPersonList) {
+            if (person.getUUID().equals(id)) {
+                return person;
+            }
+        }
+        return null;
     }
 
 
@@ -62,5 +72,15 @@ public class Persons implements Parcelable {
 
     private Persons(Parcel in) {
         mData = in.readInt();
+    }
+
+    public int findPosition(PersonModel person) {
+        for (int i = 0; i < mPersonList.size(); i++) {
+            if (person.getUUID().equals(mPersonList.get(i).getUUID())) {
+                return i;
+            }
+        }
+
+        return -1;
     }
 }

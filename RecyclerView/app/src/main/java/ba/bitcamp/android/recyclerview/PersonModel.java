@@ -1,12 +1,13 @@
 package ba.bitcamp.android.recyclerview;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
 /**
  * Created by boris.tomic on 21/10/15.
  */
-public class PersonModel {
+public class PersonModel implements Serializable {
 
     private UUID mId;
     private String mFirstName;
@@ -18,6 +19,10 @@ public class PersonModel {
         mLastName = lastName;
         mId = UUID.randomUUID();
         mDateAdded = new Date();
+    }
+
+    public UUID getUUID() {
+        return mId;
     }
 
     public String getId() {
