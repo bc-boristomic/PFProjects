@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+
                 String name = mFirstNameText.getText().toString();
                 String surname = mLastNameText.getText().toString();
                 if (name.length() < 2 || surname.length() < 2) {
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                     mFirstNameText.setText("");
                     mFirstNameText.requestFocus();
                     mLastNameText.setText("");
-                    persons.addPerson(person);
+                    Persons.get().addPerson(person);
                     mPersonAdapter.notifyDataSetChanged();
                 }
             }
