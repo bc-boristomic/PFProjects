@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    persons.removePerson(mPerson);
+                    Persons.get().removePerson(mPerson);
                     updateUI();
                 }
             });
