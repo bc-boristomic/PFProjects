@@ -20,8 +20,8 @@ public class PersonModel {
         mDateAdded = new Date();
     }
 
-    public UUID getId() {
-        return mId;
+    public String getId() {
+        return mId.toString().substring(0, 3);
     }
 
     public String getFirstName() {
@@ -32,8 +32,8 @@ public class PersonModel {
         return mLastName;
     }
 
-    public Date getmDateAdded() {
-        return mDateAdded;
+    public String getDateAdded() {
+        return (String) android.text.format.DateFormat.format("EEE, dd MMM yy", mDateAdded);
     }
 
     public void setFirstName(String mFirstName) {
@@ -44,5 +44,8 @@ public class PersonModel {
         this.mLastName = mLastName;
     }
 
-
+    @Override
+    public String toString() {
+        return mFirstName + " " + mLastName + " id" + mId + " date" + mDateAdded;
+    }
 }
