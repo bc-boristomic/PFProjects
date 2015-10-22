@@ -1,7 +1,5 @@
 package ba.bitcamp.android.criminalintent;
 
-import android.text.format.DateFormat;
-
 import java.util.Date;
 import java.util.UUID;
 
@@ -28,7 +26,7 @@ public class Crime {
         return mTitle;
     }
 
-    public void setmTitle(String title) {
+    public void setTitle(String title) {
         mTitle = title;
     }
 
