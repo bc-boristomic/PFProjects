@@ -8,4 +8,6 @@
 
     <string name="edit_person_title">Edit person details</string>
     <string name="save_person_details">Save</string>
+    <string name="sort_name">By name</string>
+    <string name="sort_surname">By surname</string>
 </resources>

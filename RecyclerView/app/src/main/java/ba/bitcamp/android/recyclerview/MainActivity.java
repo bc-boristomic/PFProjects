@@ -12,10 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private Button mAddButton;
     private RecyclerView mRecyclerView;
     private PersonAdapter mPersonAdapter;
+    private RadioButton sortByName;
+    private RadioButton sortBySurname;
     private static Persons persons = Persons.get();
 
     @Override
@@ -38,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         mFirstNameText = (EditText) findViewById(R.id.editTextFirstName);
         mLastNameText = (EditText) findViewById(R.id.editTextLastName);
         mAddButton = (Button) findViewById(R.id.add_button);
+        sortByName = (RadioButton) findViewById(R.id.sort_by_name);
+        sortBySurname = (RadioButton) findViewById(R.id.sort_by_surname);
 
 
         mAddButton.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +64,36 @@ public class MainActivity extends AppCompatActivity {
                     Persons.get().addPerson(person);
                     mPersonAdapter.notifyDataSetChanged();
                 }
+            }
+        });
+
+        sortByName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Collections.sort(Persons.get().getPersons(), new Comparator<PersonModel>() {
+                    @Override
+                    public int compare(PersonModel lhs, PersonModel rhs) {
+                        return lhs.getFirstName().compareToIgnoreCase(rhs.getFirstName());
+                    }
+                });
+                sortBySurname.setChecked(false);
+                updateUI();
+            }
+        });
+
+        sortBySurname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Collections.sort(Persons.get().getPersons(), new Comparator<PersonModel>() {
+                    @Override
+                    public int compare(PersonModel lhs, PersonModel rhs) {
+                        return lhs.getLastName().compareToIgnoreCase(rhs.getLastName());
+                    }
+                });
+                sortByName.setChecked(false);
+                updateUI();
             }
         });
 
@@ -120,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(MainActivity.this, mPerson.getFirstName() + " person name", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(MainActivity.this, EditDetails.class);
             Bundle bundle = new Bundle();
             bundle.putSerializable(KEY_INTENT, mPerson);
