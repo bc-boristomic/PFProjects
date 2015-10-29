@@ -33,7 +33,7 @@ public class EditDetails extends AppCompatActivity {
         person = (PersonModel) getIntent().getExtras().getSerializable(MainActivity.KEY_INTENT);
         Persons list = Persons.get();
         position = list.findPosition(person);
-        
+
         mPersonFirstName.setText(person.getFirstName());
         mPersonLastName.setText(person.getLastName());
 
