@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.UUID;
@@ -43,6 +44,7 @@ public class EditDetails extends AppCompatActivity {
             public void onClick(View v) {
                 Persons.get().getPersons().get(position).setFirstName(mPersonFirstName.getText().toString());
                 Persons.get().getPersons().get(position).setLastName(mPersonLastName.getText().toString());
+                Toast.makeText(EditDetails.this, "Change saved", Toast.LENGTH_LONG).show();
             }
         });
 
