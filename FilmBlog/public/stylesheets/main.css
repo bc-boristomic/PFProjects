@@ -1,0 +1,19 @@
+.index-image {
+    background-image: url('/assets/images/home-bg.jpg');
+}
+
+.post-image {
+    background-image: url('/assets/images/post-bg.jpg');
+}
+
+.about-image {
+    background-image: url('/assets/images/about-bg.jpg');
+}
+
+.contact-image {
+    background-image: url('/assets/images/contact-bg.jpg');
+}
+
+.register-image {
+    background-image: url('/assets/images/register-bg.jpg');
+}

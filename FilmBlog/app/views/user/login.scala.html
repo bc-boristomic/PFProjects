@@ -1,0 +1,61 @@
+@import viewmodels.UserLoginVM
+@(userForm: Form[UserLoginVM])
+
+@main("Login") {
+
+    <script src="@routes.Assets.versioned("javascripts/custom/EmailValidation.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.versioned("javascripts/custom/PasswordValidation.js")" type="text/javascript"></script>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header register-image">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h2>Login to FilmBlog</h2>
+                        <hr class="small">
+                        <span class="subheading">Comment on posts and more</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    @utils.flashMessages()
+
+    <div class="col-md-6 col-lg-6 col-md-offset-3 col-lg-offset-3">
+        <form action="@routes.UserController.loginUser()" method="post" enctype="multipart/form-data">
+
+            @for((key, value) <- userForm.errors) {
+                @for(err <- value) {
+                    <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">&#10006;</button>
+                        <strong>@err.message</strong>
+                    </div>
+                }
+            }
+
+            <div id="email" class="form-group">
+                <label>Email: </label>
+                <input id="validate-email" type="email" name="email" class="form-control" value="@userForm("email").value" onblur="checkEmail('login')" required />
+            </div>
+
+            <div id="password" class="form-group">
+                <label>Password: </label>
+                <input id="validate-password" type="password" name="password" class="form-control" onkeyup="checkPassword(1, 'login')" required />
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="remember"> Remember me
+                </label>
+            </div>
+
+            <div class="form-group">
+                <input id="enable-button" type="submit" class="col-md-12 btn btn-lg btn-success" value="Login" disabled>
+            </div>
+
+        </form>
+    </div>
+}
