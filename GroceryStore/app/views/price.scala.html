@@ -1,0 +1,118 @@
+@import models.Article
+@import models.Price
+
+@(articles: List[Article], singleArticle: Article)
+
+@main("Add Price to Product") {
+
+    <div class="container-fluid">
+
+        <div class="form-group col-lg-5">
+
+            <h2 class="text-center">List of products</h2>
+            <hr>
+
+            <table class="table-responsive table-bordered" id="sort">
+                <thead>
+                    <th>SKU</th>
+                    <th>Name</th>
+                    <th>Availability</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                @for(article <- articles) {
+                    <tr>
+                        <td>@article.getSku</td>
+                        <td>@article.getName</td>
+                        <td>@if(article.getAvailability) {
+                            <input type="checkbox" checked disabled /> YES
+                        } else {
+                            <input type="checkbox" disabled /> NO
+                        }
+                        </td>
+                        <th>
+                            <a href="@routes.PriceController.setPrice(article.getId)"><i class="glyphicon glyphicon-pencil"></i>
+                                Add price</a>
+                        </th>
+                    </tr>
+                }
+                </tbody>
+
+
+            </table>
+
+            @if(singleArticle == null) {
+                <a href="@routes.ArticleController.allArticles()" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i>
+                    Add new product</a>
+            }
+
+        </div>
+
+        <div class="form-group col-lg-offset-6">
+
+            <div class="form-group">
+
+                <h2 class="text-center">List of active prices</h2>
+                <hr>
+
+                <table class="table-responsive table-bordered">
+                    <thead>
+                        <th>Date</th>
+                        <th>Cost</th>
+                        <th>Actions</th>
+                    </thead>
+                    <tbody>
+                        @if(singleArticle != null) {
+                            @for(price <- singleArticle.getPrices) {
+                                <tr>
+                                    <td>@price.getPriceDate</td>
+                                    <td>@price.getCost $</td>
+                                    <th>
+                                        <a href="@routes.PriceController.deletePrice(price.getId)"><i class="glyphicon glyphicon-trash"></i>
+                                            Delete</a>
+
+                                    </th>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+
+
+                </table>
+
+            </div>
+
+            <div class="form-group col-lg-offset-6">
+
+            @if(singleArticle != null) {
+                <form action="@routes.PriceController.savePrice(singleArticle.getId)" method="post">
+
+
+                    <div class="form-group">
+                        <label>@singleArticle.getName</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Price</label>
+                        <input type="number" min="0" max="10000" name="price" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" name="date" required />
+                    </div>
+
+
+                    <div class="form-group">
+                        <input type="submit" class="col-md-12 btn btn-lg btn-success" value="Submit" >
+                    </div>
+                </form>
+            } else {
+                NO ARTICLE
+            }
+            </div>
+
+        </div>
+
+    </div>
+}

@@ -1,0 +1,75 @@
+@import models.Article
+@(articles: List[Article], singleArticle: Article)
+
+@main("Reports") {
+
+    <div class="container-fluid">
+
+        <div class="form-group col-lg-5">
+
+            <h2 class="text-center">List of products</h2>
+            <hr>
+
+            <table class="table-responsive table-bordered" id="sort">
+                <thead>
+                    <th>SKU</th>
+                    <th>Name</th>
+                </thead>
+                <tbody>
+                @for(article <- articles) {
+                    <tr>
+                        <td>
+                            <a href="@routes.ApplicationController.singleReport(article.getId)"><i class="glyphicon glyphicon-list"></i>
+                                @article.getSku</a>
+                        </td>
+                        <td>
+                            <a href="@routes.ApplicationController.singleReport(article.getId)"><i class="glyphicon glyphicon-list"></i>
+                                @article.getName</a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+
+
+            </table>
+
+        </div>
+
+        <div class="form-group col-lg-offset-6">
+
+        @if(singleArticle != null) {
+            <h2 class="text-center">Product details</h2>
+
+            <hr>
+
+            <div class="form-group">
+                <label>Product Description:</label>
+                <textarea rows="4" name="description" class="form-control" disabled>@singleArticle.getDescription</textarea>
+            </div>
+
+
+            <div class="form-group">
+                <label>Current price:</label>
+                <input type="text" name="name" class="form-control" value="@Article.currentPrice(singleArticle)" disabled />
+            </div>
+
+            <div class="form-group">
+                <label>Average price: </label>
+                <input type="text" name="productCode" class="form-control" value="@Article.averagePrice(singleArticle)" disabled />
+            </div>
+
+            <div class="form-group">
+                <label>Categories: </label>
+                @for(category <- ArticleCategory.getCategoriesByArticle(singleArticle)) {
+                    @category.getName,
+                }
+            </div>
+
+
+        }
+        </div>
+
+
+    </div>
+
+}

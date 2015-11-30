@@ -1,0 +1,115 @@
+@import models.Article
+@import viewmodels.ArticleVM
+@(articles: List[Article], articleForm: Form[ArticleVM], singleArticle : Article)
+
+@main("List of Products") {
+
+    <div class="container-fluid">
+
+        @for((key, value) <- articleForm.errors) {
+            @for(err <- value) {
+                <div class="alert alert-dismissible alert-danger text-center">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>@err.message</strong>
+                </div>
+            }
+        }
+
+        <div class="form-group col-lg-5">
+
+            <h2 class="text-center">List of products</h2>
+            <hr>
+
+            <table class="table-responsive table-bordered" id="sort">
+                <thead>
+                    <th>SKU</th>
+                    <th>Name</th>
+                    <th>Availability</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                @for(article <- articles) {
+                    <tr>
+                        <td>@article.getSku</td>
+                        <td>@article.getName</td>
+                        <td>@if(article.getAvailability) {
+                            <input type="checkbox" checked disabled /> YES
+                        } else {
+                            <input type="checkbox" disabled /> NO
+                        }
+                        </td>
+                        <th>
+                            <a href="@routes.ArticleController.editArticle(article.getId)"><i class="glyphicon glyphicon-pencil"></i> Edit</a> ||
+                            <a href="@routes.ArticleController.deleteArticle(article.getId)"><i class="glyphicon glyphicon-trash"></i> Delete</a>
+
+                        </th>
+                    </tr>
+                }
+                </tbody>
+
+
+            </table>
+
+            @if(singleArticle == null) {
+                <a href="@routes.ArticleController.allArticles()" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i>
+                    Add new product</a>
+            }
+
+        </div>
+
+        <div class="form-group col-lg-offset-6">
+
+            @if(singleArticle == null) {
+                <h2 class="text-center">Create new product</h2>
+            } else {
+                <h2 class="text-center">Update product @singleArticle.getName</h2>
+            }
+            <hr>
+
+
+            <form action="@routes.ArticleController.addUpdateArticle()" method="post">
+
+
+                <div class="form-group">
+                    <label>Product name:</label>
+                    <input type="text" name="name" class="form-control" @if(singleArticle != null) { value="@singleArticle.getName"} else { value="@articleForm("name").value"} required />
+                </div>
+
+                <div class="form-group">
+                    <label>SKU: </label>
+                    <input type="text" name="productCode" class="form-control" @if(singleArticle != null) { value="@singleArticle.getSku"} else { value="@articleForm("productCode").value" } required />
+                </div>
+
+                <div class="form-group">
+                    <label>Product is active</label>
+
+                    <input type="checkbox"
+                    @if(singleArticle != null) {
+                        @if(singleArticle.getAvailability) {
+                            checked
+                        }
+                    }
+                    name="isAvailable" />
+
+                </div>
+
+                <div class="form-group">
+                    <label>Product Description:</label>
+                    <textarea rows="4" name="description" class="form-control"> @if(singleArticle != null) { @singleArticle.getDescription} else { @articleForm("description").value }  </textarea>
+                </div>
+
+
+                <div class="form-group">
+                    <input type="submit" class="col-xs-6 btn btn-lg btn-success" value="Update/Save" >
+                </div>
+            </form>
+
+            <div class="form-group">
+                <a href="@routes.ArticleController.allArticles()" class="col-xs-5 btn btn-lg btn-default">Cancel</a>
+            </div>
+        </div>
+
+
+    </div>
+
+}

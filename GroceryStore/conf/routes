@@ -1,0 +1,31 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET         /                             @controllers.ApplicationController.index()
+
+GET         /articles/all                 @controllers.ArticleController.allArticles()
+POST        /articles/new                 @controllers.ArticleController.addUpdateArticle()
+GET         /articles/edit/:id            @controllers.ArticleController.editArticle(id: Long)
+GET         /articles/delete/:id          @controllers.ArticleController.deleteArticle(id: Long)
+
+GET         /categories/all               @controllers.CategoryController.allCategories()
+POST        /categories/new/:id           @controllers.CategoryController.addUpdateCategory(id: Long)
+GET         /categories/edit/:id          @controllers.CategoryController.editCategory(id: Long)
+GET         /categories/delete/:id        @controllers.CategoryController.deleteCategory(id: Long)
+
+GET         /relations/all                @controllers.RelationController.allRelations()
+POST        /relations/new                @controllers.RelationController.saveRelation()
+GET         /relations/delete/:id         @controllers.RelationController.deleteRelation(id: Long)
+
+GET         /prices/article/:id           @controllers.PriceController.setPrice(id: Long)
+POST        /prices/new/:id               @controllers.PriceController.savePrice(id: Long)
+GET         /prices/delete/:id            @controllers.PriceController.deletePrice(id: Long)
+
+GET         /reports/all                  @controllers.ApplicationController.allReports()
+GET         /reports/single/:id           @controllers.ApplicationController.singleReport(id: Long)
+
+
+# Map static resources from the /public folder to the /assets URL path
+GET         /assets/*file                 controllers.Assets.versioned(path="/public", file: Asset)

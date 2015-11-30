@@ -1,0 +1,99 @@
+@import models.Category
+@(categories: List[Category], singleCategory: Category)
+
+@main("List of Products") {
+
+    <div class="container-fluid">
+
+        <div class="form-group col-lg-5">
+
+            <h2 class="text-center">List of categories</h2>
+            <hr>
+
+            <table class="table-responsive table-bordered" id="sort">
+                <thead>
+                    <th>Name</th>
+                    <th>Availability</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                @for(category <- categories) {
+                    <tr>
+                        <td>@category.getName</td>
+                        <td>@if(category.getAvailability) {
+                            <input type="checkbox" checked disabled /> YES
+                        } else {
+                            <input type="checkbox" disabled /> NO
+                        }
+                        </td>
+                        <th>
+                            <a href="@routes.CategoryController.editCategory(category.getId)"><i class="glyphicon glyphicon-pencil"></i>
+                                Edit</a> ||
+                            <a href="@routes.CategoryController.deleteCategory(category.getId)"><i class="glyphicon glyphicon-trash"></i>
+                                Delete</a>
+                        </th>
+                    </tr>
+                }
+                </tbody>
+
+
+            </table>
+
+            @if(singleCategory == null) {
+                <a href="@routes.CategoryController.allCategories()" class="btn btn-primary"><i class="glyphicon glyphicon-plus-sign"></i>
+                    Add new category</a>
+            }
+
+        </div>
+
+        <div class="form-group col-lg-offset-6">
+
+            @if(singleCategory == null) {
+                <h2 class="text-center">Create new category</h2>
+            } else {
+                <h2 class="text-center">Update category @singleCategory.getName</h2>
+            }
+            <hr>
+
+            @if(singleCategory == null) {
+                <form action="@routes.CategoryController.addUpdateCategory(-1)" method="post">
+                } else {
+                <form action="@routes.CategoryController.addUpdateCategory(singleCategory.getId)" method="post">
+                }
+
+
+            <div class="form-group">
+                <label>Category name:</label>
+                <input type="text" name="name" class="form-control" @if(singleCategory != null) {
+                    value="@singleCategory.getName"} required />
+            </div>
+
+            <div class="form-group">
+                <label>Category availability</label>
+
+                <input type="checkbox"
+                @if(singleCategory != null) {
+                    @if(singleCategory.getAvailability) {
+                        checked
+                    }
+                }
+                name="isAvailable" />
+
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" class="col-xs-6 btn btn-lg btn-success" value="Update/Save" >
+            </div>
+        </form>
+
+            <div class="form-group">
+                <a href="@routes.CategoryController.allCategories()" class="col-xs-5 btn btn-lg btn-default">Cancel</a>
+            </div>
+
+        </div>
+
+
+    </div>
+
+}
