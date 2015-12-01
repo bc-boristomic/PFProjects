@@ -1,7 +1,6 @@
 package controllers;
 
 import models.Category;
-import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
 import play.mvc.Controller;

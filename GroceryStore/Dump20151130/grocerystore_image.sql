@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `article`
+-- Dumping data for table `image`
 --
 
-LOCK TABLES `article` WRITE;
-/*!40000 ALTER TABLE `article` DISABLE KEYS */;
-INSERT INTO `article` VALUES (1,'Carrot','d386d446-684e-42de-bd7a-e4641f440575','Article description',1),(2,'Apple','3e7c43c4-02e4-423d-938d-9bf0e20a3b32','Article description',1),(3,'Orange','8dc4ae5d-a1fd-4ae0-a957-33c1bdb795ed','Article description',1),(4,'Generated article 3','a3c37c36-21ec-4b15-a5be-f58f2279e956','Article description',0),(5,'Generated article 4','4dba7eb2-3b04-4051-b42d-d4f411ac268f',' \r\n                        Article description\r\n                      ',0),(6,'Generated article 5','85a27152-a41b-45bc-a2ce-64b67d261259','Article description',0),(7,'Generated article 6','9b1947a0-f109-4666-8f76-d9ec12231eed',' \r\n                        Article description\r\n                      ',0),(8,'Generated article 7','05053626-92f0-4521-8060-a347a26a2983','Article description',0),(9,'Generated article 8','9f45d9d6-ef03-4583-a912-32e5e244e269',' \r\n                        Article description\r\n                      ',0),(10,'Generated article 9','259c9b72-6e77-4935-a959-1974b4ff8998','Article description',0),(18,'Potato','3e7c43c4-02e4-423d-259d-9bf0e20a3b32','Potato',1);
-/*!40000 ALTER TABLE `article` ENABLE KEYS */;
+LOCK TABLES `image` WRITE;
+/*!40000 ALTER TABLE `image` DISABLE KEYS */;
+INSERT INTO `image` VALUES (9,'rlwwpun70axifuk2d0mi','http://res.cloudinary.com/djyfyipxc/image/upload/v1449005349/rlwwpun70axifuk2d0mi.jpg','https://res.cloudinary.com/djyfyipxc/image/upload/v1449005349/rlwwpun70axifuk2d0mi.jpg',18),(10,'f3fm1uu5swllbtd2rn4x','http://res.cloudinary.com/djyfyipxc/image/upload/v1449005351/f3fm1uu5swllbtd2rn4x.gif','https://res.cloudinary.com/djyfyipxc/image/upload/v1449005351/f3fm1uu5swllbtd2rn4x.gif',18);
+/*!40000 ALTER TABLE `image` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

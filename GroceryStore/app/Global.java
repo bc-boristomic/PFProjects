@@ -1,7 +1,11 @@
+import com.cloudinary.Cloudinary;
 import models.Article;
 import models.Category;
+import models.Image;
 import play.Application;
 import play.GlobalSettings;
+import play.Play;
+import utils.ConfigStrings;
 
 import java.util.UUID;
 
@@ -12,6 +16,9 @@ public class Global extends GlobalSettings {
 
     @Override
     public void onStart(Application application) {
+
+        Image.cloudinary = new Cloudinary(ConfigStrings.CLOUDINARY_STRING);
+
         if (Article.getFinder().findRowCount() == 0) {
             for (int i = 0; i < 10; i++) {
                 Article article = new Article();

@@ -34,6 +34,9 @@ public class Article extends Model {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "article")
     @Column(name = "prices")
     private List<Price> prices;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "article")
+    @Column(name = "images")
+    private List<Image> images;
 
     public Article() {
     }
@@ -51,6 +54,7 @@ public class Article extends Model {
         this.sku = sku;
         this.availability = availability;
         this.description = description;
+        this.images = images;
     }
 
     public static List<Article> findAllArticles() {
@@ -69,13 +73,24 @@ public class Article extends Model {
         return finder.where().eq("availability", true).findList();
     }
 
-    public static boolean createNewArticle(ArticleVM articleVM) {
+    public static Article createNewArticle(ArticleVM articleVM) {
         Article article = new Article(articleVM.getName(), articleVM.getProductCode(), articleVM.isAvailable(), articleVM.getDescription());
         try {
             article.save();
+            return article;
+        } catch (PersistenceException e) {
+            Logger.error("Failed to save article" + e.getStackTrace());
+            return null;
+        }
+    }
+
+    public static boolean addImages(Article article, List<Image> images) {
+        article.setImages(images);
+        try {
+            article.update();
             return true;
         } catch (PersistenceException e) {
-            Logger.error("Failed to save article", e.getStackTrace());
+            Logger.error("Failed to update article images" + e.getStackTrace());
             return false;
         }
     }
@@ -90,7 +105,7 @@ public class Article extends Model {
             article.update();
             return true;
         } catch (PersistenceException e) {
-            Logger.error("Failed to update article", e.getStackTrace());
+            Logger.error("Failed to update article" + e.getStackTrace());
             return false;
         }
     }
@@ -104,7 +119,7 @@ public class Article extends Model {
             article.delete();
             return true;
         } catch (PersistenceException e) {
-            Logger.error("Failed to delete article", e.getStackTrace());
+            Logger.error("Failed to delete article" + e.getStackTrace());
             return false;
         }
     }
@@ -123,11 +138,6 @@ public class Article extends Model {
         String date = new DateTime().toLocalDate() + " 00:00:00";
         DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
         DateTime toCheck = formatter.parseDateTime(date);
-
-        Logger.debug("current date " + toCheck);
-
-
-
         Price price = Price.getFinder().where().eq("article", article).eq("price_date", toCheck).findUnique();
         if (price == null) {
             return null;
@@ -187,4 +197,11 @@ public class Article extends Model {
         this.prices = prices;
     }
 
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
 }

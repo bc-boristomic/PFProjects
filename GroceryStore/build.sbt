@@ -11,7 +11,8 @@ libraryDependencies ++= Seq(
   cache,
   javaWs,
   javaJpa,
-  "mysql" % "mysql-connector-java" % "5.1.37"
+  "mysql" % "mysql-connector-java" % "5.1.37",
+  "com.cloudinary" % "cloudinary" % "1.0.14"
 )
 
 // Play provides two styles of routers, one expects its actions to be injected, the
