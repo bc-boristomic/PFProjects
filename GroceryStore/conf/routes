@@ -25,6 +25,7 @@ GET         /prices/delete/:id            @controllers.PriceController.deletePri
 
 GET         /reports/all                  @controllers.ApplicationController.allReports()
 GET         /reports/single/:id           @controllers.ApplicationController.singleReport(id: Long)
+POST        /reports/date                 @controllers.ApplicationController.currentDayPrice()
 
 
 # Map static resources from the /public folder to the /assets URL path

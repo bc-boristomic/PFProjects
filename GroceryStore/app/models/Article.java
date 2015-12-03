@@ -9,6 +9,10 @@ import play.Logger;
 import viewmodels.ArticleVM;
 
 import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -138,6 +142,26 @@ public class Article extends Model {
         String date = new DateTime().toLocalDate() + " 00:00:00";
         DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
         DateTime toCheck = formatter.parseDateTime(date);
+        Price price = Price.getFinder().where().eq("article", article).eq("price_date", toCheck).findUnique();
+        if (price == null) {
+            return null;
+        }
+        return price.getCost();
+    }
+
+    public static Float priceForSelectedDate(String selectedDate, String articleId) {
+        Long id = null;
+        if (selectedDate == null || articleId == null) {
+            return null;
+        }
+        try {
+            id = Long.parseLong(articleId);
+        } catch (NumberFormatException e) {
+            Logger.error("Failed to parse articleId String to Long" + e.getStackTrace());
+        }
+        Article article = getArticleById(id);
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd");
+        DateTime toCheck = formatter.parseDateTime(selectedDate);
         Price price = Price.getFinder().where().eq("article", article).eq("price_date", toCheck).findUnique();
         if (price == null) {
             return null;

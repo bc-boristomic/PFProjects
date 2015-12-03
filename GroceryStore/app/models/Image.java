@@ -4,7 +4,6 @@ import com.avaje.ebean.Model;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.Transformation;
 import play.Logger;
-import utils.ConfigStrings;
 
 import javax.persistence.*;
 import java.io.File;

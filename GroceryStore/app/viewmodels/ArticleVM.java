@@ -1,8 +1,7 @@
 package viewmodels;
 
-import play.Logger;
 import play.data.validation.ValidationError;
-import resources.ValidationMessages;
+import utils.ResourceStrings;
 import utils.Validations;
 
 import java.util.ArrayList;
@@ -21,11 +20,11 @@ public class ArticleVM {
     public List<ValidationError> validate() {
         List<ValidationError> errors = new ArrayList<>();
         if (Validations.isStringEmpty(name)) {
-            errors.add(new ValidationError("entry", ValidationMessages.ARTICLE_NAME));
+            errors.add(new ValidationError("entry", ResourceStrings.ARTICLE_NAME));
         } else if (Validations.isStringEmpty(productCode)) {
-            errors.add(new ValidationError("entry", ValidationMessages.ARTICLE_SKU));
+            errors.add(new ValidationError("entry", ResourceStrings.ARTICLE_SKU));
         } else if (Validations.isStringEmpty(description)) {
-            errors.add(new ValidationError("entry", ValidationMessages.ARTICLE_DESCRIPTION));
+            errors.add(new ValidationError("entry", ResourceStrings.ARTICLE_DESCRIPTION));
         }
         return errors.isEmpty() ? null : errors;
     }
